@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Core\Action;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-final class RootAction
+final class RootAction extends Action
 {
-    public function __invoke(ServerRequestInterface $request) :ResponseInterface
+    public function get(ServerRequestInterface $request): ResponseInterface
     {
-        return new JsonResponse(['Root Action']);
+        return new JsonResponse(['GET Root Action']);
     }
 }
