@@ -98,16 +98,6 @@ final class Kernel
         }
     }
 
-    private static function setMiddleware()
-    {
-        $stack = (new Builder());
-        foreach(Config::get('middleware') as $middleware) {
-            $stack->push($middleware);
-        }
-
-        return $stack->resolve($app);
-    }
-
     private static function boot() :void
     {
         static::$request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
