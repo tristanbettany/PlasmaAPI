@@ -1,3 +1,11 @@
 <?php
 
-echo 'Hello world';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use App\Core\Kernel;
+
+$config = require_once __DIR__ . '/../Config/app.php';
+
+Kernel::start($config);
