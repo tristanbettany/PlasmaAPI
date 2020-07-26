@@ -1,0 +1,28 @@
+<database name="default" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/2.0/database.xsd"
+          namespace="App\Domain\Models"
+>
+
+    <!-- * Users Table * -->
+    <table name="users" phpName="User">
+        <column name="id"              type="integer"              required="true"                  primaryKey="true" autoIncrement="true" />
+        <column name="uuid"            type="varchar"   size="255" required="true"                                                         />
+        <column name="email"           type="varchar"   size="255" required="true"                                                         />
+        <column name="hash"            type="varchar"   size="255" required="true"                                                         />
+        <column name="given_name"      type="varchar"   size="50"  required="true"                                                         />
+        <column name="family_name"     type="varchar"   size="50"  required="true"                                                         />
+        <column name="is_admin"        type="boolean"                              defaultValue="0"                                        />
+        <column name="is_active"       type="boolean"                              defaultValue="1"                                        />
+
+        <behavior name="timestampable" />
+
+        <unique name="unique_email">
+            <unique-column name="email" />
+        </unique>
+        <unique name="unique_uuid">
+            <unique-column name="uuid" />
+        </unique>
+    </table>
+
+</database>
