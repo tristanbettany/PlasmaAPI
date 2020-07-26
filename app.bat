@@ -37,6 +37,22 @@ EXIT /B
     docker container exec -w /Site api_php composer dump-autoload > nul
     GOTO END_CASE
 
+:CASE_seed
+    docker container exec -w /Site api_php ./cli db:seed
+    GOTO END_CASE
+
+:CASE_diff
+    docker container exec -w /Site api_php ./propel migration:diff
+    GOTO END_CASE
+
+:CASE_up
+    docker container exec -w /Site api_php ./propel migration:up
+    GOTO END_CASE
+
+:CASE_down
+    docker container exec -w /Site api_php ./propel migration:down
+    GOTO END_CASE
+
 :DEFAULT_CASE
     ECHO Unknown function "%1"
     GOTO END_CASE

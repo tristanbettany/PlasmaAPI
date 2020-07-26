@@ -17,6 +17,7 @@ use Monolog\Logger;
 use PDOException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Console\Application;
 
 final class Kernel
 {
@@ -27,15 +28,22 @@ final class Kernel
     private static ServerRequestInterface $request;
     private static ResponseInterface $response;
 
-    public static function start(array $config) :void
-    {
+    public static function start(
+        array $config,
+        bool $cli = false
+    ) :void {
         static::loadEnv();
         static::setLogger();
         static::setConfig($config);
         static::setDependencies();
-        static::setRoutes();
         static::setDb();
-        static::boot();
+
+        if ($cli === false) {
+            static::setRoutes();
+            static::boot();
+        } else {
+            static::bootCli();
+        }
     }
 
     private static function loadEnv() :void
@@ -80,6 +88,15 @@ final class Kernel
         }
     }
 
+    private static function setDb() :void
+    {
+        try{
+            new Connection();
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
     private static function setRoutes() :void
     {
         $strategy = (new ApplicationStrategy())->setContainer(static::$container);
@@ -101,20 +118,21 @@ final class Kernel
         }
     }
 
-    private static function setDb() :void
-    {
-        try{
-            new Connection();
-        } catch (PDOException $e) {
-            die($e->getMessage());
-        }
-    }
-
     private static function boot() :void
     {
         static::$request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
         static::$response = static::$router->dispatch(static::$request);
 
         (new SapiEmitter())->emit(static::$response);
+    }
+
+    private static function bootCli() :void
+    {
+        $application = new Application();
+        foreach(Config::get('commands') as $command) {
+            $application->add(new $command);
+        }
+
+        $application->run();
     }
 }
