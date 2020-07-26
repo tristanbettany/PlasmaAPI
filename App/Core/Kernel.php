@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Core\Database\Connection;
 use App\Core\Helpers\Config;
 use Dotenv\Dotenv;
 use Laminas\Diactoros\ServerRequestFactory;
@@ -32,6 +33,7 @@ final class Kernel
         static::setConfig($config);
         static::setDependencies();
         static::setRoutes();
+        static::setDb();
         static::boot();
     }
 
@@ -95,6 +97,15 @@ final class Kernel
                     $route['action']
                 )->middlewares($middlewares);
             }
+        }
+    }
+
+    private static function setDb()
+    {
+        try{
+            new Connection();
+        } catch (\PDOException $e) {
+            die($e->getMessage());
         }
     }
 
