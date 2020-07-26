@@ -6,20 +6,30 @@ IF ERRORLEVEL 1 CALL :DEFAULT_CASE
 ECHO Done!
 EXIT /B
 
-:CASE_rebuild
-    ECHO Rebuilding...
+:CASE_build
+    ECHO Removing temporary application files...
+    @RD /S /Q "vendor"
+    ECHO Stopping...
     docker-compose down -v > nul
+    ECHO Building...
     docker-compose up -d --build > nul
+    ECHO Installing composer dependencies...
+    docker container exec -w /Site api_php composer install > nul
     GOTO END_CASE
 
-:CASE_down
-    ECHO Bringing Down...
-    docker-compose down -v > nul
+:CASE_stop
+    ECHO Stopping...
+    docker-compose down > nul
     GOTO END_CASE
 
-:CASE_up
-    ECHO Bringing Up...
-    docker-compose up -d --build > nul
+:CASE_start
+    ECHO Starting...
+    docker-compose up -d > nul
+    GOTO END_CASE
+
+:CASE_install
+    ECHO Installing composer dependencies...
+    docker container exec -w /Site api_php composer install > nul
     GOTO END_CASE
 
 :DEFAULT_CASE
