@@ -84,13 +84,28 @@ final class Kernel
 
         foreach (Config::get('routes') as $route) {
             foreach ($route['http_methods'] as $method) {
+                $middlewares = [];
+                foreach($route['middleware'] as $middleware) {
+                    $middlewares[] = new $middleware;
+                }
+
                 static::$router->map(
                     $method,
                     $route['uri_pattern'],
                     $route['action']
-                );
+                )->middlewares($middlewares);
             }
         }
+    }
+
+    private static function setMiddleware()
+    {
+        $stack = (new Builder());
+        foreach(Config::get('middleware') as $middleware) {
+            $stack->push($middleware);
+        }
+
+        return $stack->resolve($app);
     }
 
     private static function boot() :void

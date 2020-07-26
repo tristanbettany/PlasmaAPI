@@ -32,6 +32,11 @@ EXIT /B
     docker container exec -w /Site api_php composer install > nul
     GOTO END_CASE
 
+:CASE_dump
+    ECHO Dumping autoload...
+    docker container exec -w /Site api_php composer dump-autoload > nul
+    GOTO END_CASE
+
 :DEFAULT_CASE
     ECHO Unknown function "%1"
     GOTO END_CASE

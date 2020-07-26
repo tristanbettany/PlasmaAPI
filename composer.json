@@ -29,7 +29,8 @@
       "App\\Config\\": "App\\Config",
       "App\\Core\\": "App\\Core",
       "App\\Domain\\": "App\\Domain",
-      "App\\Actions\\": "App\\Actions"
+      "App\\Actions\\": "App\\Actions",
+      "App\\Middleware\\": "App\\Middleware"
     }
   }
 }
