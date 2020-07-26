@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Core\Database;
 
+use App\Core\Interfaces\ConnectionInterface;
 use PDO;
 
-final class Connection
+final class Connection implements ConnectionInterface
 {
     private static PDO $connection;
 

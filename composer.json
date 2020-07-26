@@ -13,6 +13,7 @@
     "php": ">=7.4",
     "ext-curl": "*",
     "ext-json": "*",
+    "ext-pdo": "*",
     "vlucas/phpdotenv": "^5.1.0",
     "fzaninotto/faker": "^1.9.1",
     "league/container": "^3.3.1",

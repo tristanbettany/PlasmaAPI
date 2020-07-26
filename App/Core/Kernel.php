@@ -14,6 +14,7 @@ use League\Route\Router;
 use League\Route\Strategy\ApplicationStrategy;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PDOException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -104,7 +105,7 @@ final class Kernel
     {
         try{
             new Connection();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             die($e->getMessage());
         }
     }
