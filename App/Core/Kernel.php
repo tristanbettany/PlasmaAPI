@@ -100,7 +100,7 @@ final class Kernel
         }
     }
 
-    private static function setDb()
+    private static function setDb() :void
     {
         try{
             new Connection();
