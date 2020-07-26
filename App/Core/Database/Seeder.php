@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Database;
 
 use App\Core\Interfaces\SeederInterface;
+use App\Core\Kernel;
 use Faker\Factory;
 
 class Seeder implements SeederInterface
@@ -16,7 +17,7 @@ class Seeder implements SeederInterface
     {
         $faker = Factory::create();
         for ($i = 0; $i < $this->quantity; $i++) {
-            $service = new $this->service;
+            $service = Kernel::getContainer()->get($this->service);
             $this->define($faker, $service);
         }
     }

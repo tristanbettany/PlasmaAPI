@@ -2,4 +2,11 @@
 
 declare(strict_types=1);
 
-return [];
+use App\Actions\RootAction;
+use App\Domain\Services\UserService;
+
+return [
+    RootAction::class => [
+        UserService::class,
+    ]
+];

@@ -46,6 +46,11 @@ final class Kernel
         }
     }
 
+    public static function getContainer() :Container
+    {
+        return static::$container;
+    }
+
     private static function loadEnv() :void
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');

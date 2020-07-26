@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Seeds;
 
 use App\Core\Database\Seeder;
+use App\Core\Helpers\Auth;
 use App\Core\Interfaces\SeedInterface;
 use App\Core\Interfaces\ServiceInterface;
 use App\Domain\Services\UserService;
@@ -20,5 +21,13 @@ final class UserSeed extends Seeder implements SeedInterface
         ServiceInterface $service
     ) :void {
         /** @var UserService $service */
+        $service->createNewUser(
+            uniqid(),
+            $faker->unique()->email,
+            Auth::hashPassword('letmein'),
+            $faker->firstName,
+            $faker->lastName,
+            $faker->boolean
+        );
     }
 }
