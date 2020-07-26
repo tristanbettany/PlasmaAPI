@@ -9,7 +9,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./App:/App
+      - ./:/Site
       - ./Docker/Web/site.conf:/etc/nginx/conf.d/site.conf
     links:
       - php
@@ -21,7 +21,7 @@ services:
       context: ./Docker/PHP
     restart: 'always'
     volumes:
-      - ./App:/App
+      - ./:/Site
 
   db:
     container_name: api_db
