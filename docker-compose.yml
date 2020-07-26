@@ -31,10 +31,10 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: api
-      MYSQL_USER: api
-      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
 
   phpmyadmin:
     container_name: api_phpmyadmin
@@ -44,9 +44,9 @@ services:
     ports:
       - 8080:80
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: api
-      PMA_PASSWORD: secret
+      PMA_HOST: "${PMA_HOST}"
+      PMA_PORT: "${PMA_PORT}"
+      PMA_USER: "${PMA_USER}"
+      PMA_PASSWORD: "${PMA_PASSWORD}"
     links:
       - db
