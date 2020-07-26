@@ -38,18 +38,22 @@ EXIT /B
     GOTO END_CASE
 
 :CASE_seed
+    ECHO Seeding database...
     docker container exec -w /Site api_php ./cli db:seed
     GOTO END_CASE
 
 :CASE_diff
+    ECHO Diffing database with schema...
     docker container exec -w /Site api_php ./propel migration:diff
     GOTO END_CASE
 
 :CASE_up
+    ECHO Migrating up...
     docker container exec -w /Site api_php ./propel migration:up
     GOTO END_CASE
 
 :CASE_down
+    ECHO Migrating down...
     docker container exec -w /Site api_php ./propel migration:down
     GOTO END_CASE
 
