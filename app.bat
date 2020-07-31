@@ -15,6 +15,10 @@ EXIT /B
     docker-compose up -d --build > nul
     ECHO Installing composer dependencies...
     docker container exec -w /Site api_php composer install > nul
+    ECHO Migrating up...
+    docker container exec -w /Site api_php ./propel migration:up
+    ECHO Seeding database...
+    docker container exec -w /Site api_php ./cli db:seed
     GOTO END_CASE
 
 :CASE_stop
