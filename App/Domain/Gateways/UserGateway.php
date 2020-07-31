@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Domain\Gateways;
 
 use App\Core\Database\Gateway;
+use App\Domain\Entities\User;
 
 final class UserGateway extends Gateway
 {
@@ -71,14 +72,8 @@ final class UserGateway extends Gateway
         return $result;
     }
 
-    public function createNewUser(
-        string $uuid,
-        string $sub,
-        string $email,
-        string $givenName,
-        string $familyName,
-        bool   $isAdmin
-    ) {
+    public function persistNewUser(User $user)
+    {
         $query = "
             INSERT INTO ". self::TABLE_NAME ."
             (
@@ -107,12 +102,12 @@ final class UserGateway extends Gateway
         $this->execute(
             $query,
             [
-                ':uuid'        => $uuid,
-                ':sub'         => $sub,
-                ':email'       => $email,
-                ':given_name'  => $givenName,
-                ':family_name' => $familyName,
-                ':is_admin'    => (int) $isAdmin,
+                ':uuid'        => $user->getUuid(),
+                ':sub'         => $user->getSub(),
+                ':email'       => $user->getEmail(),
+                ':given_name'  => $user->getGivenName(),
+                ':family_name' => $user->getFamilyName(),
+                ':is_admin'    => (int) $user->getIsAdmin(),
             ]
         );
     }

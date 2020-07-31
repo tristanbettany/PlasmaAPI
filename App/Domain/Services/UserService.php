@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\Services;
 
 use App\Core\Interfaces\ServiceInterface;
+use App\Domain\Entities\Collections\Users;
+use App\Domain\Entities\User;
 use App\Domain\Gateways\UserGateway;
 
 final class UserService implements ServiceInterface
@@ -23,8 +25,8 @@ final class UserService implements ServiceInterface
         string $givenName,
         string $familyName,
         bool   $isAdmin
-    ) {
-        $this->userGateway->createNewUser(
+    ) :User {
+        return new User(
             $uuid,
             $sub,
             $email,
@@ -34,8 +36,31 @@ final class UserService implements ServiceInterface
         );
     }
 
-    public function getAllUsers() :array
+    public function persistNewUser(User $user) :void
     {
-        return $this->userGateway->getAllUsers();
+        $this->userGateway->persistNewUser($user);
+    }
+
+    public function getAllUsers() :Users
+    {
+        $usersData = $this->userGateway->getAllUsers();
+
+        $users = new Users();
+        foreach($usersData as $userData) {
+            $user = new User(
+                $userData['uuid'],
+                $userData['sub'],
+                $userData['email'],
+                $userData['given_name'],
+                $userData['family_name'],
+                (bool) $userData['is_admin'],
+                (bool) $userData['is_active'],
+                $userData['id'],
+            );
+
+            $users->append($user);
+        }
+
+        return $users;
     }
 }

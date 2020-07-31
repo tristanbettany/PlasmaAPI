@@ -21,8 +21,8 @@ final class UsersAction extends Action
 
     public function get(ServerRequestInterface $request): ResponseInterface
     {
-        return new JsonResponse(
-            $this->userService->getAllUsers()
-        );
+        $users = $this->userService->getAllUsers();
+
+        return new JsonResponse($users->serialize()->users);
     }
 }
