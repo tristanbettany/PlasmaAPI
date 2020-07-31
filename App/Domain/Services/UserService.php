@@ -18,16 +18,16 @@ final class UserService implements ServiceInterface
 
     public function createNewUser(
         string $uuid,
+        string $sub,
         string $email,
-        string $hash,
         string $givenName,
         string $familyName,
         bool   $isAdmin
     ) {
         $this->userGateway->createNewUser(
             $uuid,
+            $sub,
             $email,
-            $hash,
             $givenName,
             $familyName,
             $isAdmin

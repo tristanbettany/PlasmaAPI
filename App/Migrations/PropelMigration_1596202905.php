@@ -4,10 +4,10 @@ use Propel\Generator\Manager\MigrationManager;
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1595774980.
- * Generated on 2020-07-26 14:49:40 by root
+ * up to version 1596202905.
+ * Generated on 2020-07-31 13:41:45 by root
  */
-class PropelMigration_1595774980
+class PropelMigration_1596202905
 {
     public $comment = '';
 
@@ -49,8 +49,8 @@ CREATE TABLE `users`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uuid` VARCHAR(255) NOT NULL,
+    `sub` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
-    `hash` VARCHAR(255) NOT NULL,
     `given_name` VARCHAR(50) NOT NULL,
     `family_name` VARCHAR(50) NOT NULL,
     `is_admin` TINYINT(1) DEFAULT 0,
@@ -59,7 +59,8 @@ CREATE TABLE `users`
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `unique_email` (`email`),
-    UNIQUE INDEX `unique_uuid` (`uuid`)
+    UNIQUE INDEX `unique_uuid` (`uuid`),
+    UNIQUE INDEX `unique_sub` (`sub`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

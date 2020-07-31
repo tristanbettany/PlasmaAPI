@@ -6,14 +6,14 @@
 
     <!-- * Users Table * -->
     <table name="users" phpName="User">
-        <column name="id"              type="integer"              required="true"                  primaryKey="true" autoIncrement="true" />
-        <column name="uuid"            type="varchar"   size="255" required="true"                                                         />
-        <column name="email"           type="varchar"   size="255" required="true"                                                         />
-        <column name="hash"            type="varchar"   size="255" required="true"                                                         />
-        <column name="given_name"      type="varchar"   size="50"  required="true"                                                         />
-        <column name="family_name"     type="varchar"   size="50"  required="true"                                                         />
-        <column name="is_admin"        type="boolean"                              defaultValue="0"                                        />
-        <column name="is_active"       type="boolean"                              defaultValue="1"                                        />
+        <column name="id"               type="integer"              required="true"                  primaryKey="true" autoIncrement="true" />
+        <column name="uuid"             type="varchar"   size="255" required="true"                                                         />
+        <column name="sub"              type="varchar"   size="255" required="true"                                                         />
+        <column name="email"            type="varchar"   size="255" required="true"                                                         />
+        <column name="given_name"       type="varchar"   size="50"  required="true"                                                         />
+        <column name="family_name"      type="varchar"   size="50"  required="true"                                                         />
+        <column name="is_admin"         type="boolean"                              defaultValue="0"                                        />
+        <column name="is_active"        type="boolean"                              defaultValue="1"                                        />
 
         <behavior name="timestampable" />
 
@@ -22,6 +22,9 @@
         </unique>
         <unique name="unique_uuid">
             <unique-column name="uuid" />
+        </unique>
+        <unique name="unique_sub">
+            <unique-column name="sub" />
         </unique>
     </table>
 

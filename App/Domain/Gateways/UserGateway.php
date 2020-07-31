@@ -14,8 +14,8 @@ final class UserGateway extends Gateway
     const COLS = [
         'id',
         'uuid',
+        'sub',
         'email',
-        'hash',
         'given_name',
         'family_name',
         'is_admin',
@@ -73,8 +73,8 @@ final class UserGateway extends Gateway
 
     public function createNewUser(
         string $uuid,
+        string $sub,
         string $email,
-        string $hash,
         string $givenName,
         string $familyName,
         bool   $isAdmin
@@ -83,8 +83,8 @@ final class UserGateway extends Gateway
             INSERT INTO ". self::TABLE_NAME ."
             (
                 uuid,
+                sub,
                 email,
-                hash,
                 given_name,
                 family_name,
                 is_admin,
@@ -94,8 +94,8 @@ final class UserGateway extends Gateway
             VALUES
             (
                 :uuid,
+                :sub,
                 :email,
-                :hash,
                 :given_name,
                 :family_name,
                 :is_admin,
@@ -108,8 +108,8 @@ final class UserGateway extends Gateway
             $query,
             [
                 ':uuid'        => $uuid,
+                ':sub'         => $sub,
                 ':email'       => $email,
-                ':hash'        => $hash,
                 ':given_name'  => $givenName,
                 ':family_name' => $familyName,
                 ':is_admin'    => (int) $isAdmin,

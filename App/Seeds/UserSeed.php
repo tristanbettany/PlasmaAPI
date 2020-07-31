@@ -22,9 +22,9 @@ final class UserSeed extends Seeder implements SeedInterface
     ) :void {
         /** @var UserService $service */
         $service->createNewUser(
-            uniqid(),
+            $faker->unique()->uuid,
+            $faker->unique()->uuid,
             $faker->unique()->email,
-            Auth::hashPassword('letmein'),
             $faker->firstName,
             $faker->lastName,
             $faker->boolean
