@@ -10,11 +10,11 @@ EXIT /B
     ECHO Removing temporary application files...
     @RD /S /Q "vendor"
     ECHO Stopping...
-    docker-compose down -v > nul
+    docker-compose down -v > NUL
     ECHO Building...
-    docker-compose up -d --build > nul
+    docker-compose up -d --build > NUL
     ECHO Installing composer dependencies...
-    docker container exec -w /Site api_php composer install > nul
+    docker container exec -w /Site api_php composer install > NUL
     ECHO Migrating up...
     docker container exec -w /Site api_php ./propel migration:up
     ECHO Seeding database...
@@ -23,22 +23,27 @@ EXIT /B
 
 :CASE_stop
     ECHO Stopping...
-    docker-compose down > nul
+    docker-compose down > NUL
     GOTO END_CASE
 
 :CASE_start
     ECHO Starting...
-    docker-compose up -d > nul
+    docker-compose up -d > NUL
     GOTO END_CASE
 
 :CASE_install
     ECHO Installing composer dependencies...
-    docker container exec -w /Site api_php composer install > nul
+    docker container exec -w /Site api_php composer install > NUL
+    GOTO END_CASE
+
+:CASE_update
+    ECHO Updating composer dependencies...
+    docker container exec -w /Site api_php composer update > NUL
     GOTO END_CASE
 
 :CASE_dump
     ECHO Dumping autoload...
-    docker container exec -w /Site api_php composer dump-autoload > nul
+    docker container exec -w /Site api_php composer dump-autoload > NUL
     GOTO END_CASE
 
 :CASE_seed
