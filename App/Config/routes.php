@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Actions\RootAction;
 use App\Actions\UsersAction;
-use App\Middleware\AuthMiddleware;
+use App\Middleware\FirewallMiddleware;
 
 return [
     'root' => [
@@ -17,6 +17,6 @@ return [
         'http_methods' => ['GET'],
         'uri_pattern'  => '/users',
         'action'       => UsersAction::class,
-        'middleware'   => [AuthMiddleware::class],
+        'middleware'   => [FirewallMiddleware::class],
     ],
 ];
