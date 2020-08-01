@@ -20,13 +20,19 @@ class Gateway implements GatewayInterface
     public function fetch(
         string $query,
         array  $bindings = []
-    ) {
+    ) :?array {
         $preparedQuery = $this->prepareQuery(
             $query,
             $bindings
         );
 
-        return $preparedQuery->fetch(PDO::FETCH_ASSOC);
+        $result = $preparedQuery->fetch(PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function fetchAll(

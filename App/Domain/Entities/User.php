@@ -48,6 +48,20 @@ final class User extends Entity
         $this->id = $id;
     }
 
+    public static function forge(array $userData) :User
+    {
+        return new self(
+            $userData['uuid'],
+            $userData['sub'],
+            $userData['email'],
+            $userData['given_name'],
+            $userData['family_name'],
+            (bool) $userData['is_admin'],
+            (bool) $userData['is_active'],
+            $userData['id']
+        );
+    }
+
     public function getId() :?int
     {
         return $this->id;

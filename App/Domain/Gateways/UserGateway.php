@@ -45,31 +45,30 @@ final class UserGateway extends Gateway
         return $result;
     }
 
-    public function getUserByEmail(
-        string $email,
-        bool   $isActive = true
-    ) :array {
+    public function getUserBy(array $params) :?array {
+        $whereQuery = '';
+        $i = 0;
+        foreach ($params as $param => $value) {
+            if ($i === 0) {
+                $whereQuery .= ' WHERE ' . str_replace(':','', $param) . ' = ' . $param;
+            } else {
+                $whereQuery .= ' AND ' . str_replace(':','', $param) . ' = ' . $param;
+            }
+
+            $i++;
+        }
+
         $query = "
             SELECT 
                 ". implode(',', self::COLS) ."
-            FROM ". self::TABLE_NAME ."
-            WHERE is_active = :is_active
-            AND email = :email
-        ";
+            FROM ". self::TABLE_NAME ." ".
+            $whereQuery
+        ;
 
-        $result = $this->fetch(
+        return $this->fetch(
             $query,
-            [
-                ':email'     => $email,
-                ':is_active' => (int) $isActive,
-            ]
+            $params
         );
-
-        if (empty($result) === true) {
-            return [];
-        }
-
-        return $result;
     }
 
     public function persistNewUser(User $user)

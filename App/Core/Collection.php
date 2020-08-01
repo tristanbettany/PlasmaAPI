@@ -7,12 +7,9 @@ namespace App\Core;
 use App\Core\Interfaces\EntityInterface;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\AccessType;
-use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
-use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
-use JMS\Serializer\SerializerBuilder;
 
 /** @AccessType("public_method") */
-class Collection implements EntityInterface
+class Collection extends Serializable implements EntityInterface
 {
     /** @Expose */
     protected array $storage;
@@ -37,20 +34,5 @@ class Collection implements EntityInterface
     public function append($item)
     {
         $this->storage[] = $item;
-    }
-
-    public function serialize() :object
-    {
-        $serializer = SerializerBuilder::create()
-            ->setPropertyNamingStrategy(
-                new SerializedNameAnnotationStrategy(
-                    new IdenticalPropertyNamingStrategy()
-                )
-            )
-            ->build();
-
-        $json = $serializer->serialize($this, 'json');
-
-        return json_decode($json);
     }
 }
