@@ -45,7 +45,7 @@ final class UserGateway extends Gateway
         return $result;
     }
 
-    public function getUserBy(array $params) :?array {
+    public function getUsersBy(array $params) :array {
         $whereQuery = '';
         $i = 0;
         foreach ($params as $param => $value) {
@@ -65,10 +65,16 @@ final class UserGateway extends Gateway
             $whereQuery
         ;
 
-        return $this->fetch(
+        $result = $this->fetchAll(
             $query,
             $params
         );
+
+        if (empty($result) === true) {
+            return [];
+        }
+
+        return $result;
     }
 
     public function persistNewUser(User $user)

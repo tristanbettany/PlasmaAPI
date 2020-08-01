@@ -41,21 +41,22 @@ final class UserService implements ServiceInterface
         $this->userGateway->persistNewUser($user);
     }
 
-    public function getUserBy(array $params) :?User
+    public function getUsersBy(array $params) :Users
     {
-        $userData = $this->userGateway->getUserBy($params);
+        $usersData = $this->userGateway->getUsersBy($params);
 
-        if (empty($userData) === true) {
-            return null;
-        }
-
-        return User::forge($userData);
+        return $this->buildUsersCollection($usersData);
     }
 
     public function getAllUsers() :Users
     {
         $usersData = $this->userGateway->getAllUsers();
 
+        return $this->buildUsersCollection($usersData);
+    }
+
+    private function buildUsersCollection(array $usersData) :Users
+    {
         $users = new Users();
         foreach($usersData as $userData) {
             $user = User::forge($userData);
