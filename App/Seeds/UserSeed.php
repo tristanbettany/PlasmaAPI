@@ -22,13 +22,13 @@ final class UserSeed extends Seeder implements SeedInterface
         /** @var UserService $service */
         $user = $service->createNewUser(
             $faker->unique()->uuid,
-            $faker->unique()->uuid,
             $faker->unique()->email,
             $faker->firstName,
             $faker->lastName,
+            $faker->boolean,
             $faker->boolean
         );
 
-        $service->persistNewUser($user);
+        $service->persistUser($user);
     }
 }

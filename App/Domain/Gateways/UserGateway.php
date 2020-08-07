@@ -116,4 +116,31 @@ final class UserGateway extends Gateway
             ]
         );
     }
+
+    public function persistExistingUser(User $user)
+    {
+        $query = "
+            UPDATE ". self::TABLE_NAME ."
+            SET
+                sub = :sub,
+                email = :email,
+                given_name = :given_name,
+                family_name = :family_name,
+                is_admin = :is_admin,
+                is_active = :is_active,
+                updated_at = NOW()
+        ";
+
+        $this->execute(
+            $query,
+            [
+                ':sub'         => $user->getSub(),
+                ':email'       => $user->getEmail(),
+                ':given_name'  => $user->getGivenName(),
+                ':family_name' => $user->getFamilyName(),
+                ':is_admin'    => (int) $user->getIsAdmin(),
+                ':is_active'    => (int) $user->getIsActive(),
+            ]
+        );
+    }
 }

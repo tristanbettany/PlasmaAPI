@@ -38,6 +38,8 @@ final class User extends Entity
         bool $isActive = true,
         int $id = null
     ) {
+        parent::__construct();
+
         $this->uuid = $uuid;
         $this->sub = $sub;
         $this->email = $email;
@@ -48,8 +50,34 @@ final class User extends Entity
         $this->id = $id;
     }
 
-    public static function forge(array $userData) :User
+    public static function forge(
+        string $sub,
+        string $email,
+        string $givenName,
+        string $familyName,
+        bool $isAdmin = false,
+        bool $isActive = true
+    ) :User {
+        /**
+         * Used to create a brand new user in memory
+         * Generating an ID for uuid
+         */
+        return new self(
+            uniqid(),
+            $sub,
+            $email,
+            $givenName,
+            $familyName,
+            $isAdmin,
+            $isActive
+        );
+    }
+
+    public static function fromArray(array $userData) :User
     {
+        /**
+         * Used to create a User from a row in the database
+         */
         return new self(
             $userData['uuid'],
             $userData['sub'],

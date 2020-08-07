@@ -19,26 +19,30 @@ final class UserService implements ServiceInterface
     }
 
     public function createNewUser(
-        string $uuid,
         string $sub,
         string $email,
         string $givenName,
         string $familyName,
-        bool   $isAdmin
+        bool $isAdmin = false,
+        bool $isActive = true
     ) :User {
-        return new User(
-            $uuid,
+        return User::forge(
             $sub,
             $email,
             $givenName,
             $familyName,
-            $isAdmin
+            $isAdmin,
+            $isActive
         );
     }
 
-    public function persistNewUser(User $user) :void
+    public function persistUser(User $user) :void
     {
-        $this->userGateway->persistNewUser($user);
+        if ($user->getId() === null) {
+            $this->userGateway->persistNewUser($user);
+        } else {
+            $this->userGateway->persistExistingUser($user);
+        }
     }
 
     public function getUsersBy(array $params) :Users
@@ -59,7 +63,7 @@ final class UserService implements ServiceInterface
     {
         $users = new Users();
         foreach($usersData as $userData) {
-            $user = User::forge($userData);
+            $user = User::fromArray($userData);
             $users->append($user);
         }
 
