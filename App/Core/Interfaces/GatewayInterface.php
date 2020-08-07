@@ -9,7 +9,7 @@ interface GatewayInterface
     public function fetch(
         string $query,
         array  $bindings = []
-    );
+    ) :?array;
 
     public function fetchAll(
         string $query,

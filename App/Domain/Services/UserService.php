@@ -36,7 +36,7 @@ final class UserService implements ServiceInterface
         );
     }
 
-    public function persistUser(User $user) :void
+    public function persistUser(User &$user) :void
     {
         if ($user->getId() === null) {
             $this->userGateway->persistNewUser($user);

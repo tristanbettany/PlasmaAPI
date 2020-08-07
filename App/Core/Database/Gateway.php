@@ -10,7 +10,7 @@ use PDOStatement;
 
 class Gateway implements GatewayInterface
 {
-    private PDO $connection;
+    protected PDO $connection;
 
     public function __construct()
     {

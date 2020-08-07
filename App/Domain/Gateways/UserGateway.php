@@ -77,7 +77,7 @@ final class UserGateway extends Gateway
         return $result;
     }
 
-    public function persistNewUser(User $user)
+    public function persistNewUser(User &$user)
     {
         $query = "
             INSERT INTO ". self::TABLE_NAME ."
@@ -104,7 +104,7 @@ final class UserGateway extends Gateway
             )
         ";
 
-        $this->execute(
+        $statement = $this->execute(
             $query,
             [
                 ':uuid'        => $user->getUuid(),
@@ -115,9 +115,11 @@ final class UserGateway extends Gateway
                 ':is_admin'    => (int) $user->getIsAdmin(),
             ]
         );
+
+        $user->setId((int) $this->connection->lastInsertId());
     }
 
-    public function persistExistingUser(User $user)
+    public function persistExistingUser(User &$user)
     {
         $query = "
             UPDATE ". self::TABLE_NAME ."
