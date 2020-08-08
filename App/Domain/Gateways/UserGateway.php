@@ -15,7 +15,6 @@ final class UserGateway extends Gateway
     const COLS = [
         'id',
         'uuid',
-        'sub',
         'email',
         'given_name',
         'family_name',
@@ -82,7 +81,6 @@ final class UserGateway extends Gateway
             INSERT INTO ". self::TABLE_NAME ."
             (
                 uuid,
-                sub,
                 email,
                 given_name,
                 family_name,
@@ -92,7 +90,6 @@ final class UserGateway extends Gateway
             VALUES
             (
                 :uuid,
-                :sub,
                 :email,
                 :given_name,
                 :family_name,
@@ -105,7 +102,6 @@ final class UserGateway extends Gateway
             $query,
             [
                 ':uuid'        => $user->getUuid(),
-                ':sub'         => $user->getSub(),
                 ':email'       => $user->getEmail(),
                 ':given_name'  => $user->getGivenName(),
                 ':family_name' => $user->getFamilyName(),
@@ -120,7 +116,6 @@ final class UserGateway extends Gateway
         $query = "
             UPDATE ". self::TABLE_NAME ."
             SET
-                sub = :sub,
                 email = :email,
                 given_name = :given_name,
                 family_name = :family_name,
@@ -131,7 +126,6 @@ final class UserGateway extends Gateway
         $this->execute(
             $query,
             [
-                ':sub'         => $user->getSub(),
                 ':email'       => $user->getEmail(),
                 ':given_name'  => $user->getGivenName(),
                 ':family_name' => $user->getFamilyName(),

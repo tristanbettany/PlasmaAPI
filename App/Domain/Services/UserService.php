@@ -19,14 +19,12 @@ final class UserService implements ServiceInterface
     }
 
     public function createNewUser(
-        string $sub,
         string $email,
         string $givenName,
         string $familyName,
         bool $isActive = true
     ) :User {
         return User::forge(
-            $sub,
             $email,
             $givenName,
             $familyName,

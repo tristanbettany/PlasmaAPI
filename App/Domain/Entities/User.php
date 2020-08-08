@@ -16,8 +16,6 @@ final class User extends Entity
     /** @Expose */
     private string $uuid;
     /** @Expose */
-    private string $sub;
-    /** @Expose */
     private string $email;
     /** @Expose */
     private string $givenName;
@@ -28,7 +26,6 @@ final class User extends Entity
 
     public function __construct(
         string $uuid,
-        string $sub,
         string $email,
         string $givenName,
         string $familyName,
@@ -38,7 +35,6 @@ final class User extends Entity
         parent::__construct();
 
         $this->uuid = $uuid;
-        $this->sub = $sub;
         $this->email = $email;
         $this->givenName = $givenName;
         $this->familyName = $familyName;
@@ -47,7 +43,6 @@ final class User extends Entity
     }
 
     public static function forge(
-        string $sub,
         string $email,
         string $givenName,
         string $familyName,
@@ -59,7 +54,6 @@ final class User extends Entity
          */
         return new self(
             uniqid(),
-            $sub,
             $email,
             $givenName,
             $familyName,
@@ -74,7 +68,6 @@ final class User extends Entity
          */
         return new self(
             $userData['uuid'],
-            $userData['sub'],
             $userData['email'],
             $userData['given_name'],
             $userData['family_name'],
@@ -103,18 +96,6 @@ final class User extends Entity
     public function setUuid(string $uuid) :User
     {
         $this->uuid = $uuid;
-
-        return $this;
-    }
-
-    public function getSub() :string
-    {
-        return $this->sub;
-    }
-
-    public function setSub(string $sub) :User
-    {
-        $this->sub = $sub;
 
         return $this;
     }

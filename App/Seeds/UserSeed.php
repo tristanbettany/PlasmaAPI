@@ -21,7 +21,6 @@ final class UserSeed extends Seeder implements SeedInterface
     ) :void {
         /** @var UserService $service */
         $user = $service->createNewUser(
-            $faker->unique()->uuid,
             $faker->unique()->email,
             $faker->firstName,
             $faker->lastName,
