@@ -25,7 +25,6 @@ final class UserSeed extends Seeder implements SeedInterface
             $faker->unique()->email,
             $faker->firstName,
             $faker->lastName,
-            $faker->boolean,
             $faker->boolean
         );
 

@@ -12,7 +12,6 @@
         <column name="email"            type="varchar"   size="255" required="true"                                                         />
         <column name="given_name"       type="varchar"   size="50"  required="true"                                                         />
         <column name="family_name"      type="varchar"   size="50"  required="true"                                                         />
-        <column name="is_admin"         type="boolean"                              defaultValue="0"                                        />
         <column name="is_active"        type="boolean"                              defaultValue="1"                                        />
 
         <behavior name="timestampable" />

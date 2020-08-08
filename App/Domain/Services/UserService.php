@@ -23,7 +23,6 @@ final class UserService implements ServiceInterface
         string $email,
         string $givenName,
         string $familyName,
-        bool $isAdmin = false,
         bool $isActive = true
     ) :User {
         return User::forge(
@@ -31,7 +30,6 @@ final class UserService implements ServiceInterface
             $email,
             $givenName,
             $familyName,
-            $isAdmin,
             $isActive
         );
     }

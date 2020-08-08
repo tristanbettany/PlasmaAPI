@@ -24,8 +24,6 @@ final class User extends Entity
     /** @Expose */
     private string $familyName;
     /** @Expose */
-    private bool $isAdmin;
-    /** @Expose */
     private bool $isActive;
 
     public function __construct(
@@ -34,7 +32,6 @@ final class User extends Entity
         string $email,
         string $givenName,
         string $familyName,
-        bool $isAdmin = false,
         bool $isActive = true,
         int $id = null
     ) {
@@ -45,7 +42,6 @@ final class User extends Entity
         $this->email = $email;
         $this->givenName = $givenName;
         $this->familyName = $familyName;
-        $this->isAdmin = $isAdmin;
         $this->isActive = $isActive;
         $this->id = $id;
     }
@@ -55,7 +51,6 @@ final class User extends Entity
         string $email,
         string $givenName,
         string $familyName,
-        bool $isAdmin = false,
         bool $isActive = true
     ) :User {
         /**
@@ -68,7 +63,6 @@ final class User extends Entity
             $email,
             $givenName,
             $familyName,
-            $isAdmin,
             $isActive
         );
     }
@@ -84,7 +78,6 @@ final class User extends Entity
             $userData['email'],
             $userData['given_name'],
             $userData['family_name'],
-            (bool) $userData['is_admin'],
             (bool) $userData['is_active'],
             $userData['id']
         );
@@ -158,18 +151,6 @@ final class User extends Entity
     public function setFamilyName(string $familyName) :User
     {
         $this->familyName = $familyName;
-
-        return $this;
-    }
-
-    public function getIsAdmin() :bool
-    {
-        return $this->isAdmin;
-    }
-
-    public function setIsAdmin(bool $isAdmin) :User
-    {
-        $this->isAdmin = $isAdmin;
 
         return $this;
     }

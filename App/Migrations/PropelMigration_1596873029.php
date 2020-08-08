@@ -4,10 +4,10 @@ use Propel\Generator\Manager\MigrationManager;
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1596202905.
- * Generated on 2020-07-31 13:41:45 by root
+ * up to version 1596873029.
+ * Generated on 2020-08-08 07:50:29 by root
  */
-class PropelMigration_1596202905
+class PropelMigration_1596873029
 {
     public $comment = '';
 
@@ -53,7 +53,6 @@ CREATE TABLE `users`
     `email` VARCHAR(255) NOT NULL,
     `given_name` VARCHAR(50) NOT NULL,
     `family_name` VARCHAR(50) NOT NULL,
-    `is_admin` TINYINT(1) DEFAULT 0,
     `is_active` TINYINT(1) DEFAULT 1,
     `created_at` DATETIME,
     `updated_at` DATETIME,

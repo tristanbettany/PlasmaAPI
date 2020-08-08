@@ -19,7 +19,6 @@ final class UserGateway extends Gateway
         'email',
         'given_name',
         'family_name',
-        'is_admin',
         'is_active',
         'created_at',
         'updated_at',
@@ -87,7 +86,6 @@ final class UserGateway extends Gateway
                 email,
                 given_name,
                 family_name,
-                is_admin,
                 created_at,
                 updated_at
             )
@@ -98,7 +96,6 @@ final class UserGateway extends Gateway
                 :email,
                 :given_name,
                 :family_name,
-                :is_admin,
                 NOW(),
                 NOW()
             )
@@ -112,7 +109,6 @@ final class UserGateway extends Gateway
                 ':email'       => $user->getEmail(),
                 ':given_name'  => $user->getGivenName(),
                 ':family_name' => $user->getFamilyName(),
-                ':is_admin'    => (int) $user->getIsAdmin(),
             ]
         );
 
@@ -128,7 +124,6 @@ final class UserGateway extends Gateway
                 email = :email,
                 given_name = :given_name,
                 family_name = :family_name,
-                is_admin = :is_admin,
                 is_active = :is_active,
                 updated_at = NOW()
         ";
@@ -140,7 +135,6 @@ final class UserGateway extends Gateway
                 ':email'       => $user->getEmail(),
                 ':given_name'  => $user->getGivenName(),
                 ':family_name' => $user->getFamilyName(),
-                ':is_admin'    => (int) $user->getIsAdmin(),
                 ':is_active'    => (int) $user->getIsActive(),
             ]
         );
